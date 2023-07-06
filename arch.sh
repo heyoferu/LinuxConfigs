@@ -268,12 +268,6 @@ clear
 #arch-chroot /mnt /bin/bash -c "pacman -S linux-lts linux-firmware linux-lts-headers mkinitcpio --noconfirm"
 arch-chroot /mnt /bin/bash -c "pacman -S linux linux-firmware linux-headers mkinitcpio --noconfirm"
 
-#INSTALACION GNOME MINIMAL
-arch-chroot /mnt /bin/bash -c "pacman -S gnome-shell gdm gnome-control-center gnome-backgrounds gnome-disk-utility gnome-terminal nautilus gnome-tweaks  gnome-software gnome-software-packagekit-plugin rtkit polkit-gnome qt5-wayland xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-gnome --noconfirm"
-arch-chroot /mnt /bin/bash -c "systemctl enable gdm"
-# INSTALACIÓN DE PLASMA
-arch-chroot /mnt /bin/bash -c "sudo pacman -S sddm plasma konsole dolphin ark spectacle partitionmanager packagekit-qt5 --noconfirm --needed"
-
 clear
 
 ##INSTALACION DEL GRUB-EFI
@@ -304,6 +298,12 @@ echo '> Confirme tener las IMG de linux para el arranque'
 echo '> Confirme tener la carpeta de GRUB para el arranque' 
 sleep 2
 
+#INSTALACION GNOME MINIMAL
+arch-chroot /mnt /bin/bash -c "pacman -S gnome-shell gdm gnome-control-center gnome-backgrounds gnome-disk-utility gnome-terminal nautilus gnome-tweaks  gnome-software gnome-software-packagekit-plugin rtkit polkit-gnome qt5-wayland xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-gnome --noconfirm"
+arch-chroot /mnt /bin/bash -c "systemctl enable gdm"
+# INSTALACIÓN DE PLASMA
+arch-chroot /mnt /bin/bash -c "sudo pacman -S sddm plasma konsole dolphin ark spectacle partitionmanager packagekit-qt5 --noconfirm --needed"
+
 #INSTALACION DE WIFI
 arch-chroot /mnt /bin/bash -c "pacman -S dhcpcd networkmanager net-tools ifplugd --noconfirm"
 
@@ -327,7 +327,7 @@ arch-chroot /mnt /bin/bash -c "pacman -S zsh-autosuggestions zsh-history-substri
 arch-chroot /mnt /bin/bash -c "pacman -S xorg-server xorg-apps xorg-xinit --noconfirm"
 
 #UTILIDADES
-arch-chroot /mnt /bin/bash -c "pacman -S p7zip unrar zip unzip gzip bzip2 lzop git wget neofetch lsb-release xdg-user-dirs android-tools android-udev libmtp libcddb gvfs gvfs-afc gvfs-smb gvfs-gphoto2 gvfs-mtp gvfs-goa gvfs-nfs dosfstools jfsutils f2fs-tools btrfs-progs exfat-utils ntfs-3g reiserfsprogs xfsprogs nilfs-utils polkit gpart mtools ffmpeg aom libde265 x265 x264 libmpeg2 xvidcore libtheora libvpx schroedinger sdl gstreamer gst-plugins-bad gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-ugly xine-lib lame --noconfirm"#UTILIDADES
+arch-chroot /mnt /bin/bash -c "pacman -S neofetch p7zip unrar zip unzip gzip bzip2 lzop git wget neofetch lsb-release xdg-user-dirs android-tools android-udev libmtp libcddb gvfs gvfs-afc gvfs-smb gvfs-gphoto2 gvfs-mtp gvfs-goa gvfs-nfs dosfstools jfsutils f2fs-tools btrfs-progs exfat-utils ntfs-3g reiserfsprogs xfsprogs nilfs-utils polkit gpart mtools ffmpeg aom libde265 x265 x264 libmpeg2 xvidcore libtheora libvpx schroedinger sdl gstreamer gst-plugins-bad gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-ugly xine-lib lame --noconfirm"#UTILIDADES
 
 arch-chroot /mnt /bin/bash -c "sudo pacman -S usbutils ntfs-3g flatpak pacman-contrib xdg-user-dirs --noconfirm --needed"
 arch-chroot /mnt /bin/bash -c "sudo pacman -S git make gcc curl wget nvtop htop vim fuse less man --noconfirm --needed "
@@ -432,7 +432,5 @@ sleep 5
 
 #DESMONTAR Y REINICIAR
 umount -R /mnt
-swapoff -a
 
 
-reboot
