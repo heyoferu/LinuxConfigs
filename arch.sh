@@ -154,7 +154,8 @@ echo ""
 echo "Formateando Particiones"
 echo ""
 mkfs.btrfs -f -L "root" -n 32k $(cat root-efi) 
-mount $(cat root-efi) /mnt 
+mount $(cat root-efi) /mnt
+btrfs subvolume create /mnt/@
 btrfs subvolume list -p /mnt
 mount -o noatime,compress=lzo,space_cache,subvol=@ $(cat root-efi)
 
