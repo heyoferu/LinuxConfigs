@@ -147,7 +147,7 @@ echo ""
 echo "Partición ROOT es:"
 cat root-efi
 echo ""
-sleep 2
+sleep 5
 
 clear
 echo ""
@@ -156,6 +156,20 @@ echo ""
 mkfs.btrfs -f -L "root" -n 32k $(cat root-efi) 
 mount $(cat root-efi) /mnt
 btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@var_log
+btrfs subvolume create /mnt/@var_tmp
+btrfs subvolume create /mnt/@snapshots
+btrfs subvolume list -p /mnt
+
+mount -o noatime,compress=lzo,space_cache,subvol=@ $(cat root-efi)
+mkdir -p /mnt/{boot,home,var/{log,tmp},.snapshots} 
+
+mount -o noatime,compress=lzo,space_cache,subvol=@home $(cat root-efi) /mnt/home
+mount -o noatime,compress=lzo,space_cache,subvol=@var_log $(cat root-efi) /mnt/var/log
+mount -o noatime,compress=lzo,space_cache,subvol=@var_tmp $(cat root-efi) /mnt/var/tmp
+mount -o noatime,compress=lzo,space_cache,subvol=@snapshots $(cat root-efi) /mnt/.snapshots
+ 
 btrfs subvolume list -p /mnt
 mount -o noatime,compress=lzo,space_cache,subvol=@ $(cat root-efi)
 
@@ -301,9 +315,11 @@ sleep 2
 #INSTALACION GNOME MINIMAL
 arch-chroot /mnt /bin/bash -c "pacman -S gnome-shell gdm gnome-control-center gnome-backgrounds gnome-disk-utility gnome-terminal nautilus gnome-tweaks  gnome-software gnome-software-packagekit-plugin rtkit polkit-gnome qt5-wayland xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-gnome --noconfirm"
 arch-chroot /mnt /bin/bash -c "systemctl enable gdm"
+echo "GNOME INSTALADO"
+sleep 10
 # INSTALACIÓN DE PLASMA
 arch-chroot /mnt /bin/bash -c "sudo pacman -S sddm plasma konsole dolphin ark spectacle partitionmanager packagekit-qt5 --noconfirm --needed"
-
+sleep 10
 #INSTALACION DE WIFI
 arch-chroot /mnt /bin/bash -c "pacman -S dhcpcd networkmanager net-tools ifplugd --noconfirm"
 
